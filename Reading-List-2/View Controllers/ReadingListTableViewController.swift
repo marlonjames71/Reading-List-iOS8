@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookTableViewController: UITableViewController {
+class ReadingListTableViewController: UITableViewController {
 
 	let bookController = BookController()
 
