@@ -10,17 +10,19 @@ import UIKit
 
 class BookDetailViewController: UIViewController {
 
+	// MARK: - Properties & Outlets
+
 	var book: Book?
 
 	var bookController: BookController?
-
-	
 
 	@IBOutlet weak var viewForTextField: UIView!
 	@IBOutlet weak var viewForTextView: UIView!
 	@IBOutlet weak var textField: UITextField!
 	@IBOutlet weak var textView: UITextView!
 
+
+	// MARK: - Lifecycle
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -30,6 +32,9 @@ class BookDetailViewController: UIViewController {
 		viewForTextView.layer.cornerRadius = 8
 		viewForTextView.layer.borderColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
 	}
+
+
+	//MARK: - IBActions
 
 	@IBAction func saveTapped(_ sender: UIBarButtonItem) {
 		guard let title = textField.text,
@@ -44,12 +49,16 @@ class BookDetailViewController: UIViewController {
 		navigationController?.popToRootViewController(animated: true)
 	}
 
+
+	// MARK: - UpdateViews Method
+
 	func updateViews() {
 		guard let book = book else {
 			title = "Add a new book"
 			return
 		}
-		title = book.title
+
+		title = "Book: \(book.title)"
 		textField.text = book.title
 		textView.text = book.reasonToRead
 	}

@@ -10,6 +10,7 @@ import Foundation
 
 
 class BookController {
+
 	private(set) var books = [Book]()
 
 	init() {

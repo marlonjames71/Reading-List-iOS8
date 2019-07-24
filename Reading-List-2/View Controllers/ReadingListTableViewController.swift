@@ -10,7 +10,12 @@ import UIKit
 
 class ReadingListTableViewController: UITableViewController {
 
+	//MARK: - Properties
+
 	let bookController = BookController()
+
+
+	// MARK: - Lifecycle
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -20,6 +25,7 @@ class ReadingListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		title = "Reading List"
+		tableView.tableFooterView = UIView()
     }
 
     // MARK: - Table view data source
@@ -27,6 +33,7 @@ class ReadingListTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
+
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
@@ -38,13 +45,22 @@ class ReadingListTableViewController: UITableViewController {
 		}
     }
 
+
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
 		switch section {
 		case 0:
-			return "Books that have not been read"
+			if bookController.unreadBooks.count == 1 {
+				return "You have \(bookController.unreadBooks.count) book in your list to read:"
+			} else {
+				return "You have \(bookController.unreadBooks.count) books in your list to read:"
+			}
 		default:
-			return "Books that have been read"
+			if bookController.readBooks.count == 1 {
+				return "You have read \(bookController.readBooks.count) book from your list"
+			} else {
+				return "You have read \(bookController.readBooks.count) books from your list"
+			}
 		}
 	}
 
@@ -59,13 +75,11 @@ class ReadingListTableViewController: UITableViewController {
     }
 
 
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 
 
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 			let book = bookFor(indexPath: indexPath)
