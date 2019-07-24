@@ -10,7 +10,7 @@ import UIKit
 
 class BookTableViewCell: UITableViewCell {
 
-	var delegate: BookTableViewCellDelegate?
+	weak var delegate: BookTableViewCellDelegate?
 
 	var book: Book? {
 		didSet {
@@ -34,7 +34,7 @@ class BookTableViewCell: UITableViewCell {
 
 	@IBAction func checkBoxTapped(_ sender: UIButton) {
 		guard let delegate = delegate else { return }
-		delegate.toggleHasBeenRead(for: BookTableViewCell())
+		delegate.toggleHasBeenRead(for: self)
 	}
 
 	func updateViews() {
